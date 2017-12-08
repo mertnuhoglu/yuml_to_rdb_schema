@@ -1,11 +1,22 @@
 Package: yumltordbschema
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Converts yuml Data Model into rdb Data Schema Specs
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
+Author: Mert Nuhoglu
+Maintainer: Mert Nuhoglu <mert.nuhoglu@gmail.com>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+SystemRequirements: bash scripts inside /inst folder
+Imports: 
+    assertthat(>= 0.2.0),
+    dplyr (>= 0.7.1),
+    magrittr (>= 1.5),
+    purrr (>= 0.2.2),
+    readr (>= 0.2.2),
+    rio (>= 0.4.16),
+    stringr (>= 1.2.0),
+    tidyr (>= 0.5.1)
+RoxygenNote: 6.0.1
