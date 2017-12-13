@@ -15,7 +15,8 @@ test_setup = function() {
 
 test_update_rdb_data_step_1 = function() {
   data_model_dir = setenv_osx()
-  update_rdb_data_step_1(data_model_dir)
+  rdt = build_rdb_data(data_model_dir)
+  build_ddl(data_entity = rdt$data_entity, data_field = rdt$data_field, data_model_dir)
 }
 
 test_sh = function() {
@@ -34,11 +35,11 @@ main_yuml_to_rdb_schema = function() {
 }
 
 data_model_dir = function() {
-	check_data_dir()
+	env_data_model_dir()
   Sys.getenv("DATA_MODEL_DIR")
 }
 
-check_data_dir = function() {
+env_data_model_dir = function() {
   data_model_dir = Sys.getenv("DATA_MODEL_DIR")
   if (data_model_dir == "") {
     v1 = sprintf("%s/%s", getwd(), ".")
@@ -50,13 +51,13 @@ check_data_dir = function() {
 setenv_osx = function() {
   library(yumltordbschema)
   Sys.setenv(DATA_MODEL_DIR = "/Users/mertnuhoglu/projects/itr/itr_documentation/data_model/")
-	check_data_dir()
+	env_data_model_dir()
 }
 
 setenv_docker = function() {
   library(vrpdata)
   Sys.setlocale("LC_CTYPE", "en_US.UTF-8")
   Sys.setenv(DATA_MODEL_DIR = "/srv/app/data/jtn")
-	check_data_dir()
+	env_data_model_dir()
 }
 

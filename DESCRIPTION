@@ -10,7 +10,7 @@ License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 SystemRequirements: bash scripts inside /inst folder
-Imports: 
+Imports:
     assertthat(>= 0.2.0),
     dplyr (>= 0.7.1),
     magrittr (>= 1.5),
@@ -20,3 +20,6 @@ Imports:
     stringr (>= 1.2.0),
     tidyr (>= 0.5.1)
 RoxygenNote: 6.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
