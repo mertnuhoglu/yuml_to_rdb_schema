@@ -4,7 +4,7 @@
 # convert_yuml_2_table_list model.md
 # corresponds to the following function:
 # <url:/Users/mertnuhoglu/.vim/bundle/vim-infoman/plugin/vim-infoman.vim#tn=function! ConvertYuml2TableList()>
-# filepath=view/datamodel_sdb.yuml
+# filepath=data/view/datamodel_sdb.yuml
 filepath=$1
 mkdir -p tmp
 cp $filepath tmp/temp

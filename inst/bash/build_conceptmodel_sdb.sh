@@ -5,8 +5,8 @@
 # build_conceptmodel_sdb
 
 # process conceptual models
-mkdir -p view
-find . -iname "conceptmodel*.md" | ack -v 'huseyin|arif|rdm|intro|audit|2016|alexey|temp|datamodel_bps_02|/tr/|/en/' | xargs cat > view/conceptmodel_sdb.yuml
-dos2unix view/conceptmodel_sdb.yuml
-convert_yuml_markdown_2_clean_yuml view/conceptmodel_sdb.yuml
+mkdir -p data/view
+find . -iname "conceptmodel*.md" | ack -v 'huseyin|arif|rdm|intro|audit|2016|alexey|temp|datamodel_bps_02|/tr/|/en/' | xargs cat > data/view/conceptmodel_sdb.yuml
+dos2unix data/view/conceptmodel_sdb.yuml
+convert_yuml_markdown_2_clean_yuml data/view/conceptmodel_sdb.yuml
 

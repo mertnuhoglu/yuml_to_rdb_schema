@@ -12,6 +12,7 @@ LazyData: true
 SystemRequirements: bash scripts inside /inst folder
 Imports:
     assertthat(>= 0.2.0),
+    data.table (>= 1.10.4-3),
     dplyr (>= 0.7.1),
     magrittr (>= 1.5),
     purrr (>= 0.2.2),

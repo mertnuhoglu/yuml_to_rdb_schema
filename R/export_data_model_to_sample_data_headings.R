@@ -80,7 +80,7 @@ study_export_data_model_to_excel = function() {
 	res = lapply( den$entity_name, entity_as_df, dfl) %>%
 		setNames( den$entity_name )
 	as.yaml(res) %>%
-		writeLines( "../view/view_data_model.otl")
+		writeLines( "../data/view/view_data_model.otl")
 
 	# s3: filtering and ordering
 	entities_bps01 = c(

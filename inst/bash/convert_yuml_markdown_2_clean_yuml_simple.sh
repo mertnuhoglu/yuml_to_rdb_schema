@@ -1,7 +1,7 @@
 #!/bin/sh
 # <url:file:///~/Dropbox (BTG)/TEUIS PROJECT 80-SUPPORT/system_admin/scripts/convert_yuml_markdown_2_clean_yuml>
 # usage:
-# convert_yuml_markdown_2_clean_yuml view/datamodel_sdb.yuml
+# convert_yuml_markdown_2_clean_yuml data/view/datamodel_sdb.yuml
 # corresponds to the following function:
 # <url:/Users/mertnuhoglu/.vim/bundle/vim-infoman/plugin/vim-infoman.vim#tn=command! ConvertYumlMarkdown2CleanYuml call ConvertYumlMarkdown2CleanYuml()>
 filepath=$1
