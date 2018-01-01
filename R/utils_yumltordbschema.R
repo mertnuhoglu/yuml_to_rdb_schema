@@ -11,38 +11,51 @@ write_yuml_data_model = function(df, data_model_dir = env_data_model_dir()) {
   rio::export(df, sprintf("%s/data/view/yuml_data_model.csv", data_model_dir))
 }
 
-#' rdb/data_entity.tsv file is written manually
-#' its source is: data/view/yuml_data_entity.tsv
-#' @export
-r_data_entity = function(data_model_dir = env_data_model_dir(), ...) {
-  path = sprintf("%s/rdb/data_entity.tsv", data_model_dir)
-  if (file.exists(path))
-    readr::read_tsv(path)
-  else
-    data.frame(
-      data_entity_id = integer(),
-      entity_name = character(),
-      entity_type = character(),
-      invalid = integer()
-    )
+read_enum_value = function(data_model_dir = env_data_model_dir()) {
+  rio::convert(sprintf("%s/../rdb/enum_value.xlsx", data_model_dir), sprintf("%s/../rdb/enum_value.tsv", data_model_dir))
+  rio::import(sprintf("%s/../rdb/enum_value.xlsx", data_model_dir))
 }
 
-r_data_field = function(data_model_dir = env_data_model_dir(), ...) {
-  path = sprintf("%s/rdb/data_field.tsv", data_model_dir)
-  if (file.exists(path))
-    rutils::import2(path, ...)
-  else
-    data.frame(
-      data_field_id = integer(),
-      data_field_name = character(),
-      entity_name = character(),
-      data_entity_id = integer(),
-      enum_name = character(),
-      enum_category_id = integer(),
-      type = character(),
-      pk_fk = character(),
-      state = character(),
-      description = character(),
-      invalid = integer()
-    )
+write_enum_value = function(df, data_model_dir = env_data_model_dir()) {
+  rio::export(df, sprintf("%s/../rdb/enum_value.xlsx", data_model_dir))
+  rio::convert(sprintf("%s/../rdb/enum_value.xlsx", data_model_dir), sprintf("%s/../rdb/enum_value.tsv", data_model_dir))
 }
+
+read_enum_var = function(data_model_dir = env_data_model_dir()) {
+  rio::convert(sprintf("%s/../rdb/enum_var.xlsx", data_model_dir), sprintf("%s/../rdb/enum_var.tsv", data_model_dir))
+  rio::import(sprintf("%s/../rdb/enum_var.xlsx", data_model_dir))
+}
+
+write_enum_var = function(df, data_model_dir = env_data_model_dir()) {
+  rio::export(df, sprintf("%s/../rdb/enum_var.xlsx", data_model_dir))
+  rio::convert(sprintf("%s/../rdb/enum_var.xlsx", data_model_dir), sprintf("%s/../rdb/enum_var.tsv", data_model_dir))
+}
+
+r_entity = function(entity, data_model_dir = env_data_model_dir()) {
+  rio::import(sprintf("%s/../rdb/%s.xlsx", data_model_dir, entity))
+}
+
+r_data_entity = function(...) {
+  read_data_entity(...)
+}
+
+read_data_entity = function(data_model_dir = env_data_model_dir()) {
+  rio::import(sprintf("%s/data/view/data_entity.tsv", data_model_dir))
+}
+
+write_data_entity = function(df, data_model_dir = env_data_model_dir()) {
+  rio::export(df, sprintf("%s/data/view/data_entity.tsv", data_model_dir))
+}
+
+r_data_field = function(...) {
+  read_data_field(...)
+}
+
+read_data_field = function(data_model_dir = env_data_model_dir()) {
+  rio::import(sprintf("%s/data/view/data_field.tsv", data_model_dir))
+}
+
+write_data_field = function(df, data_model_dir = env_data_model_dir()) {
+  rio::export(df, sprintf("%s/data/view/data_field.tsv", data_model_dir))
+}
+

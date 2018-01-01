@@ -13,21 +13,27 @@ test_setup = function() {
   #library(tidyr)
 }
 
+test_build_data_sql = function() {
+  main_build_data_sql()
+}
 test_update_rdb_data_step_1 = function() {
   data_model_dir = setenv_osx()
-  rdt = build_rdb_data(data_model_dir)
-  ddl = build_ddl(
+  rdt = yuml_to_rdb(data_model_dir)
+  ddl = rdb_to_ddl(
                   data_entity = rdt$data_entity
                   , data_field = rdt$data_field
-                  , data_model_dir
                   )
   den2 = rdt$data_entity %>%
     dplyr::left_join(ddl, by = "data_entity_id") %>%
     dplyr::arrange(entity_name)
   rio::export(den2, sprintf("%s/data/view/data_entity_with_ddl.tsv", data_model_dir))
   ddl_lines = den2$sql_create_table %>%
-    stringr::str_replace_all("([(])", "\\1\\\n  ") %>%
-    stringr::str_replace_all("([,)])", "\\\n  \\1 ") 
+    # split into new lines from '(' but not after 'REFERENCES'
+    stringr::str_replace_all("(?<!REFERENCES \\w{1,64} )([(])", "\\1\\\n  ") %>%
+    # split into new lines from ')' but not after 'REFERENCES'
+    stringr::str_replace_all("(?<!REFERENCES \\w{1,64} \\(\\w{1,64})([)])", "\\\n  \\1 ") %>%
+    # split into new lines from ',' 
+    stringr::str_replace_all("([,])", "\\\n  \\1 ") 
   writeLines(ddl_lines, sprintf("%s/data/view/create_table_ddl.sql", data_model_dir))
 }
 

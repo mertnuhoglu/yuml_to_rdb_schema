@@ -20,7 +20,7 @@ Imports:
     rio (>= 0.4.16),
     stringr (>= 1.2.0),
     tidyr (>= 0.5.1)
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
