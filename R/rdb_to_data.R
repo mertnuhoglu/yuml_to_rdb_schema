@@ -86,7 +86,7 @@ rdb_to_data = function(entity, data_entities, dfl, den) {
 	build_sql(df, entity, id_column, den)
 }
 
-main_build_data_sql = function() {
+main_rdb_to_data = function() {
   data_model_dir = setenv_osx()
   entities = c("enum_var", "enum_value")
   data_entities = lapply(entities, r_entity, data_model_dir) %>%

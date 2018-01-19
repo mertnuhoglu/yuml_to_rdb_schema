@@ -13,10 +13,10 @@ test_setup = function() {
   #library(tidyr)
 }
 
-test_build_data_sql = function() {
-  main_build_data_sql()
+test_rdb_to_data = function() {
+  main_rdb_to_data()
 }
-test_update_rdb_data_step_1 = function() {
+test_yuml_to_rdb_to_ddl = function() {
   data_model_dir = setenv_osx()
   rdt = yuml_to_rdb(data_model_dir)
   ddl = rdb_to_ddl(
