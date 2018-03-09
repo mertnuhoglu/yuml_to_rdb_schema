@@ -13,10 +13,35 @@ test_setup = function() {
   #library(tidyr)
 }
 
-test_rdb_to_data = function() {
-  main_rdb_to_data()
+main_manual_rdb_to_data = function() {
+  main_rdb_to_data_step01()
+  # manual steps:
+  # process ddl.sql -> ddl_m.sql
+  # ~/projects/itr/itr_documentation/data_model/data/view/ddl_m.sql
+  # %s/\<BIGINT\>/INT/g
+  # tabloların referans sıralamasını düzelt
+  # tüm enum'ların df ifadelerini oluştur
+  # -- df place_enum: word=./data/view/place_enum.txt
+  # predefined verileri çıkart: enum_var, enum_value
+  # -- df: nogen
+  main_rdb_to_data_step02()
 }
-test_yuml_to_rdb_to_ddl = function() {
+
+main_rdb_to_data_step01 = function() {
+  main_yuml_to_uml()
+  main_yuml_to_rdb__yuml_to_ddl()
+  #> ~/projects/itr/itr_documentation/data_model/data/view/ddl.sql
+  main_rdb_to_data()
+  #> ~/projects/itr/itr_documentation/data_model/data/sql/sql_insert/sql_insert_enum_var.sql
+}
+
+main_rdb_to_data_step02 = function() {
+  #< ~/projects/itr/itr_documentation/data_model/data/view/ddl_m.sql
+  main_ddl_to_data()
+  #> ~/projects/itr/itr_documentation/data_model/data/view/data.sql
+}
+
+main_yuml_to_rdb__yuml_to_ddl = function() {
   data_model_dir = setenv_osx()
   rdt = yuml_to_rdb(data_model_dir)
   ddl = rdb_to_ddl(
@@ -34,15 +59,15 @@ test_yuml_to_rdb_to_ddl = function() {
     stringr::str_replace_all("(?<!REFERENCES \\w{1,64} \\(\\w{1,64})([)])", "\\\n  \\1 ") %>%
     # split into new lines from ',' 
     stringr::str_replace_all("([,])", "\\\n  \\1 ") 
-  writeLines(ddl_lines, sprintf("%s/data/view/create_table_ddl.sql", data_model_dir))
+  writeLines(ddl_lines, sprintf("%s/data/view/ddl.sql", data_model_dir))
 }
 
 test_sh = function() {
-  build_datamodel_sdb.sh = system.file("bash/build_datamodel_sdb.sh", package = "yumltordbschema")
+  cat_yuml.sh = system.file("bash/cat_yuml.sh", package = "yumltordbschema")
   data_model_dir = setenv_osx()
-  system2(build_datamodel_sdb.sh, data_model_dir)
+  system2(cat_yuml.sh, data_model_dir)
   #print("xlp")
-  #system(sprintf("%s %s", build_datamodel_sdb.sh, data_model_dir), intern = T)
+  #system(sprintf("%s %s", cat_yuml.sh, data_model_dir), intern = T)
 }
 
 main_yuml_to_rdb_schema = function() {

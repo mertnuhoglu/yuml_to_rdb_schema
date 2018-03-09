@@ -3,8 +3,8 @@ NULL
 
 #' @export
 yuml_to_rdb = function(data_model_dir) {
-  build_datamodel_sdb.sh = system.file("bash/build_datamodel_sdb.sh", package = "yumltordbschema")
-  system2(build_datamodel_sdb.sh, data_model_dir)
+  cat_yuml.sh = system.file("bash/cat_yuml.sh", package = "yumltordbschema")
+  system2(cat_yuml.sh, data_model_dir)
 
 	yuml_lines = r_datamodel_sdb(data_model_dir) %>% 
     rutils::grepv("\\|")

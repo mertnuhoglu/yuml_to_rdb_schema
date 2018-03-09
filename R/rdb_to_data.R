@@ -1,3 +1,21 @@
+main_rdb_to_data = function() {
+  data_model_dir = setenv_osx()
+  entities = c("enum_var", "enum_value")
+  data_entities = lapply(entities, r_entity, data_model_dir) %>%
+    setNames(entities)
+  dfl = read_data_field(data_model_dir)
+  den = read_data_entity(data_model_dir)
+  ent_m_cmdtype_m_cmds = lapply( entities, rdb_to_data, data_entities, dfl, den) %>%
+    setNames(entities)
+
+  for (entity in names(ent_m_cmdtype_m_cmds)) {
+    cmdtype_m_cmds = ent_m_cmdtype_m_cmds[[entity]]
+    for (cmdtype in names(cmdtype_m_cmds)) {
+       writeLines( cmdtype_m_cmds[[cmdtype]], rutils::sprintf_path("%s/data/sql/%s/%s_%s.sql", data_model_dir, cmdtype, cmdtype, entity) )
+    }
+  }
+}
+
 insert_sql_template = function( entity, columns ) {
 	template = "INSERT INTO %s (%s) VALUES (%s);"
 	column_names = columns %>% paste(collapse=",")
@@ -84,24 +102,5 @@ rdb_to_data = function(entity, data_entities, dfl, den) {
 	df = data_entities[[entity]] %>%
     dplyr::select_(.dots = columns)
 	build_sql(df, entity, id_column, den)
-}
-
-main_rdb_to_data = function() {
-  data_model_dir = setenv_osx()
-  entities = c("enum_var", "enum_value")
-  data_entities = lapply(entities, r_entity, data_model_dir) %>%
-    setNames(entities)
-  dfl = read_data_field(data_model_dir)
-  den = read_data_entity(data_model_dir)
-  ent_m_cmdtype_m_cmds = lapply( entities, rdb_to_data, data_entities, dfl, den) %>%
-    setNames(entities)
-
-  for (entity in names(ent_m_cmdtype_m_cmds)) {
-    cmdtype_m_cmds = ent_m_cmdtype_m_cmds[[entity]]
-    for (cmdtype in names(cmdtype_m_cmds)) {
-       writeLines( cmdtype_m_cmds[[cmdtype]], rutils::sprintf_path("%s/data/sql/%s/%s_%s.sql", data_model_dir, cmdtype, cmdtype, entity) )
-    }
-  }
-
 }
 
